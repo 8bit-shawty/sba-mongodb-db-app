@@ -27,4 +27,19 @@ router.get('/:id', async(req, res, next) => {
     }
 })
 
+router.post('/', async(req, res, next) => {
+    try{
+        let collection = db.collection('books');
+        const newBook = {
+            title: req.body.title,
+            author: req.body.author,
+            copiesAvail: req.body.copiesAvail
+        }
+        const result = await collection.insertOne(newBook)
+        res.send(result).status(201)
+    }catch(err){
+        next(err)
+    }
+})
+
 export default router
