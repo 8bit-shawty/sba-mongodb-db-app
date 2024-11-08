@@ -12,7 +12,7 @@ async function seedData() {
             { title: 'Bikini Bottom', author: 'S. Squarepants', copiesAvail: 8 },
         ];
         const booksCollection = db.collection('books');
-        await booksCollection.insertMany(books);
+        const addedBooks = await booksCollection.insertMany(books);
         console.log('Books inserted!');
 
         // Users collection
@@ -24,8 +24,30 @@ async function seedData() {
             { name: 'Kobe Bryant', email: 'imhim8@gmail.com' },
         ];
         const usersCollection = db.collection('users');
-        await usersCollection.insertMany(users);
+        const addedUsers = await usersCollection.insertMany(users);
         console.log('Users inserted!');
+
+        const checkouts = [
+            {
+                book: addedBooks.insertedIds[0],
+                user: addedUsers.insertedIds[0],
+                checkoutDate: new Date()
+            },
+            {
+                book: addedBooks.insertedIds[1],
+                user: addedUsers.insertedIds[1],
+                checkoutDate: new Date()
+            },
+            {
+                book: addedBooks.insertedIds[2],
+                user: addedUsers.insertedIds[2],
+                checkoutDate: new Date()
+            },
+        ];
+
+        const checkoutsCollection = db.collection('checkouts');
+        await checkoutsCollection.insertMany(checkouts);
+        console.log('Checkouts inserted!');
 
         console.log('Seeding done');
     } catch (err) {
