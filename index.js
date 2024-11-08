@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 })
 
 //ROUTES
+app.use('/books', bookRoutes)
 
 //GLOBAL ERROR HANDLING MIDDLEWARE
 app.use((err, req, res, next) => {
