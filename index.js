@@ -1,6 +1,7 @@
 import express from 'express'
 import 'dotenv/config'
 import bookRoutes from './routes/books.js'
+import userRoutes from './routes/users.js'
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -17,6 +18,8 @@ app.get('/', (req, res) => {
 
 //ROUTES
 app.use('/books', bookRoutes)
+app.use('/users', userRoutes)
+
 
 //GLOBAL ERROR HANDLING MIDDLEWARE
 app.use((err, req, res, next) => {
