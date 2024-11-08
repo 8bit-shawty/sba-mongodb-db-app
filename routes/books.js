@@ -15,4 +15,16 @@ router.get('/all', async(req, res, next) => {
     }
 })
 
+router.get('/:id', async(req, res, next) => {
+    try{
+        let collection = db.collection('books');
+        const query = {_id: new ObjectId(req.params.id)}
+        const result = await collection.findOne(query)
+        if(!result) return res.status(404).send("No books found.")
+        res.status(200).json(result)
+    }catch(err){
+        next(err)
+    }
+})
+
 export default router
