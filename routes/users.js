@@ -56,4 +56,17 @@ router.patch('/:id', async(req, res, next) => {
     }
 })
 
+router.delete('/:id', async(req, res, next) => {
+    try{
+        let collection = db.collection('users');
+
+        const query = {_id: new ObjectId(req.params.id)}
+        
+        const result = await collection.deleteOne(query)
+        if(result.deletedCount === 0) return res.status(404).send("No user found.")
+        res.send("User Deleted").status(200)
+    }catch(err){
+        next(err)
+    }
+})
 export default router
